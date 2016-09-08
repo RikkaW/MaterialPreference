@@ -313,6 +313,6 @@
     <declare-styleable name="ForegroundCheckTextView">
         <attr name="android:foregroundGravity"/>
         <attr name="android:foreground"/>
-        <attr name="foregroundInsidePadding" format="boolean"/>
+        <attr name="foregroundInsidePaddings" format="boolean"/>
     </declare-styleable>
 </resources>
