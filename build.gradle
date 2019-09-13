@@ -7,7 +7,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0-alpha10'
+        classpath 'com.android.tools.build:gradle:3.5.0'
 
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
@@ -27,9 +27,8 @@ task clean(type: Delete) {
 }
 
 ext {
-    androidXLibraryVersion = '1.0.0'
     minSdkVersion = 16
-    targetSdkVersion = 28
-    versionCode = 4
-    versionName = '3.0.0'
+    targetSdkVersion = 29
+    versionCode = 5
+    versionName = '4.0.0'
 }

@@ -82,6 +82,8 @@ public class SimpleMenuPopupWindow extends PopupWindow {
     public SimpleMenuPopupWindow(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
+        getBackground();
+
         setFocusable(true);
         setOutsideTouchable(false);
 

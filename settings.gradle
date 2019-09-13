@@ -1,5 +1,7 @@
-include ':preference'
-include ':preference-dialog-android', ':preference-dialog-appcompat'
-include ':preference-switchcompat'
-include ':preference-simplemenu'
-include ':sample'
+include ':preference-android'
+include ':preference-simplemenu-android'
+include ':sample-android'
+
+include ':preference-appcompat'
+include ':preference-simplemenu-appcompat'
+include ':sample-appcompat'

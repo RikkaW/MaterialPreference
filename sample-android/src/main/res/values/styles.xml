@@ -1,0 +1,23 @@
+<resources>
+
+    <style name="Base.Light" parent="android:Theme.Material.Light"/>
+    <style name="Base" parent="android:Theme.Material"/>
+
+    <style name="AppTheme" parent="Base.Light">
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay">
+        <item name="simpleMenuPreferenceStyle">@style/Preference.SimpleMenuPreference</item>
+    </style>
+
+    <!--<style name="SimpleMenuPreference" parent="Preference.SimpleMenuPreference">
+        <item name="popupStyle">@style/SimpleMenuPreference.Popup</item>
+    </style>
+
+    <style name="SimpleMenuPreference.Popup" parent="Preference.SimpleMenuPreference.Popup">
+        <item name="listElevation">40dp</item>
+    </style>-->
+
+</resources>

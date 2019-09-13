@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.targetSdkVersion
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        consumerProguardFiles rootProject.file('preference/proguard-rules.pro')
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets.main {
+        manifest.srcFile rootProject.file('preference/src/main/AndroidManifest.xml')
+        java.srcDirs = ['src/main/java', rootProject.file('preference/src/main/java')]
+        res.srcDirs = ['src/main/res', rootProject.file('preference/src/main/res')]
+    }
+}
+
+dependencies {
+    implementation "androidx.annotation:annotation:1.1.0"
+    implementation "androidx.fragment:fragment:1.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+}
+
+ext {
+    libraryName = 'MaterialPreference-Android'
+    libraryDescription = 'Part of MaterialPreference that make it use Android dialog.'
+    libraryVersion = versionName
+    artifact = project.name
+    bintrayName = project.name
+}
+
+apply from: project.rootProject.file('bintray.gradle')

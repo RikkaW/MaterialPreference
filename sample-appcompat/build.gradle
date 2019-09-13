@@ -1,0 +1,28 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.targetSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        consumerProguardFiles 'proguard-rules.pro'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation project(':preference-appcompat')
+    implementation project(':preference-simplemenu-appcompat')
+}

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="Theme">
-
-        <attr name="backgroundCompat" />
-        <attr name="dialogPreferenceStyle" />
-
         <!-- Default style for simple menu preferences. -->
         <attr name="simpleMenuPreferenceStyle" format="reference" />
     </declare-styleable>

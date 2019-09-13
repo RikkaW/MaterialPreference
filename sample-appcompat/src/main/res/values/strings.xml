@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">MaterialPreference</string>
+    <string name="action_settings">Settings</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="rtl">RTL</string>
+
+    <string-array name="entries">
+        <item>Item 1</item>
+        <item>Item 2</item>
+        <item>Item 3</item>
+        <item>Item 4</item>
+        <item>Item 5</item>
+        <item>Item 6</item>
+        <item>Item 7</item>
+        <item>Item 8</item>
+        <item>Item 9</item>
+        <item>Item 10</item>
+        <item>Item 11</item>
+        <item>Item 12</item>
+        <item>Item 13</item>
+        <item>Item 14 (</item>
+        <item>Item 15 ) ○(￣^￣○)</item>
+    </string-array>
+
+    <string-array name="entries_2">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+
+    <string-array name="entry_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+
+    <string-array name="default_value" translatable="false">
+        <item>999</item>
+        <item>0</item>
+    </string-array>
+
+    <string name="on_preference_change_toast_message">onPreferenceChange: key = %1$s, newValue = %2$s</string>
+
+</resources>
