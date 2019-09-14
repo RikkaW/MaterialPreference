@@ -1,24 +1,51 @@
 MaterialPreference
 ==================
 
-Based on support-preference from Android Support Library, adding a lot of exciting features.
+Based on support-preference from Android Support Library, adding some features.
 
-#### Sample
+![sample](https://raw.githubusercontent.com/RikkaW/MaterialPreference/master/art/sample.gif)
 
-![sample](https://github.com/RikkaW/MaterialPreference/blob/master/art/sample.gif)
+## Usage
 
-#### How to use
+1. Add dependencies
 
-1. add dependencies
+   ![image](https://api.bintray.com/packages/rikkaw/MaterialPreference/preference/images/download.svg) (replace `<latest-release>` below with this)
 
-![image](https://api.bintray.com/packages/rikkaw/MaterialPreference/preference/images/download.svg)
+   First you need to choose whether to use appcompat or not.
 
-```
-// replace <latest-release> with version above
-implementation 'moe.shizuku.preference:preference:<latest-release>'
-implementation 'moe.shizuku.preference:preference-dialog-android:<latest-release>'
-//implementation 'moe.shizuku.preference:preference-dialog-appcompat:<latest-release>' // if you want to use appcompat version dialog
-//implementation 'moe.shizuku.preference:preference-switchcompat:<latest-release>' // appcompat version of SwitchCompat, only need if you want to support pre-21
-//implementation 'moe.shizuku.preference:preference-simplemenu:<latest-release>' // if you want try SimpleMenuPreference, on pre-21 it will fallback to ListPreference
-```
-2. sample will tell you everything
+   For none appcompat users (like me), use packages with "-android" suffix. Note android variant requires API 21+.
+
+   ```
+   implementation 'moe.shizuku.preference:preference-android:<latest-release>'
+   ```
+
+   For appcompat users, use packages with "-appcompat" suffix.
+
+   ```
+   implementation 'moe.shizuku.preference:preference-appcompat:<latest-release>'
+   ```
+   
+   If you want to use SimpleMenuPreference, add this. Note android variant requires API 23+. On pre-API 21, SimpleMenu is downgrade to normal list.
+   ```
+   // android
+   implementation 'moe.shizuku.preference:preference-simplemenu-android:<latest-release>'
+   // appcompat
+   implementation 'moe.shizuku.preference:preference-simplemenu-appcompat:<latest-release>'
+   ```
+2. Add theme
+   
+   Add `preferenceTheme` to your theme like this.
+
+   ```
+   <style name="AppTheme" parent="...">
+       ...
+       <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+   </style>
+   ```
+3. `sample-android` / `sample-appcompat` provides a full example
+
+## Changes for v4.0.0
+
+1. Rearrange packages, split into non-appcompat and appcompat variants.
+2. preference_category_material.xml paddingTop 16dp -> 24dp
+3. preference_recyclerview.xml id @+id/list -> @android:id/list
