@@ -9,7 +9,7 @@ Based on support-preference from Android Support Library, adding some features.
 
 1. Add dependencies
 
-   ![image](https://api.bintray.com/packages/rikkaw/MaterialPreference/preference/images/download.svg) (replace `<latest-release>` below with this)
+   ![image](https://api.bintray.com/packages/rikkaw/MaterialPreference/preference-android/images/download.svg) (replace `<latest-release>` below with this)
 
    Before new packages is added to JCenter, you need to add this.
    ```
