@@ -11,6 +11,13 @@ Based on support-preference from Android Support Library, adding some features.
 
    ![image](https://api.bintray.com/packages/rikkaw/MaterialPreference/preference/images/download.svg) (replace `<latest-release>` below with this)
 
+   Before new packages is added to JCenter, you need to add this.
+   ```
+   maven {
+       url "https://dl.bintray.com/rikkaw/MaterialPreference" 
+   }
+   ```
+
    First you need to choose whether to use appcompat or not.
 
    For none appcompat users (like me), use packages with "-android" suffix. Note android variant requires API 21+.

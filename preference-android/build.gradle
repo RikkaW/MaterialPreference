@@ -32,7 +32,7 @@ dependencies {
 
 ext {
     libraryName = 'MaterialPreference-Android'
-    libraryDescription = 'Part of MaterialPreference that make it use Android dialog.'
+    libraryDescription = 'MaterialPreference which use pure Android resources.'
     libraryVersion = versionName
     artifact = project.name
     bintrayName = project.name

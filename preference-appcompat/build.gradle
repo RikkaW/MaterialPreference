@@ -33,7 +33,7 @@ dependencies {
 
 ext {
     libraryName = 'MaterialPreference-AppCompat'
-    libraryDescription = 'Part of MaterialPreference that make it use appcompat dialog.'
+    libraryDescription = 'MaterialPreference with use appcompat resources.'
     libraryVersion = versionName
     artifact = project.name
     bintrayName = project.name

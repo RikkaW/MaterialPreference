@@ -31,8 +31,8 @@ dependencies {
 }
 
 ext {
-    libraryName = 'MaterialPreference-SimpleMenu'
-    libraryDescription = 'An extend of MaterialPreference, adding a version of ListPreference that use Simple Menus from Material Design as drop down.'
+    libraryName = 'MaterialPreference-SimpleMenu-Android'
+    libraryDescription = 'An extend of MaterialPreference, adding a version of ListPreference that use Simple Menus from Material Design as drop down. Use pure Android resources.'
     libraryVersion = versionName
     artifact = project.name
     bintrayName = project.name
