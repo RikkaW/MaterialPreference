@@ -46,6 +46,11 @@ Based on support-preference from Android Support Library, adding some features.
 
 ## Changes for v4.0.0
 
-1. Rearrange packages, split into non-appcompat and appcompat variants.
+1. Rearrange packages, split into non-appcompat and appcompat variants. This will reduce the package count and get rid of `accentColorCompat`, `backgroundCompat` or duplicate of resources.
+   
+   `preference-android` equals previous `preference` + `preference-dialog-android`
+
+   `preference-appcompat` equals previous `preference` + `preference-dialog-appcompat` + `preference-switchcompat`
+    
 2. preference_category_material.xml paddingTop 16dp -> 24dp
 3. preference_recyclerview.xml id @+id/list -> @android:id/list
