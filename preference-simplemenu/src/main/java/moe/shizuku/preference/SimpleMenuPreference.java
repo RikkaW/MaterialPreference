@@ -22,6 +22,16 @@ import moe.shizuku.preference.widget.SimpleMenuPopupWindow;
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SimpleMenuPreference extends ListPreference {
 
+    private static boolean sLightFixEnabled = false;
+
+    public static boolean isLightFixEnabled() {
+        return sLightFixEnabled;
+    }
+
+    public static void setLightFixEnabled(boolean lightFixEnabled) {
+        sLightFixEnabled = lightFixEnabled;
+    }
+
     private View mAnchor;
     private View mItemView;
     private SimpleMenuPopupWindow mPopupWindow;

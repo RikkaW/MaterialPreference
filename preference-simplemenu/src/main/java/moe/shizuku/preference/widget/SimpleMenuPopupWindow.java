@@ -20,6 +20,8 @@ import java.util.Comparator;
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import moe.shizuku.preference.SimpleMenuPreference;
 import moe.shizuku.preference.animation.SimpleMenuAnimation;
 import moe.shizuku.preference.drawable.FixedBoundsDrawable;
 import moe.shizuku.preference.simplemenu.R;
@@ -199,6 +201,15 @@ public class SimpleMenuPopupWindow extends PopupWindow {
 
         if (mMode == POPUP_MENU) {
             showPopupMenu(anchor, container, mMeasuredWidth, extraMargin);
+
+            if (SimpleMenuPreference.isLightFixEnabled()) {
+                mList.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Light.resetLightCenterForPopupWindow(SimpleMenuPopupWindow.this);
+                    }
+                });
+            }
         } else {
             showDialog(anchor, container);
         }
