@@ -619,8 +619,8 @@ public abstract class PreferenceFragment extends Fragment implements
                 .inflate(R.layout.preference_recyclerview, parent, false);
 
         recyclerView.setLayoutManager(onCreateLayoutManager());
-        recyclerView.setAccessibilityDelegateCompat(
-                new PreferenceRecyclerViewAccessibilityDelegate(recyclerView));
+        /*recyclerView.setAccessibilityDelegateCompat(
+                new PreferenceRecyclerViewAccessibilityDelegate(recyclerView));*/
 
         return recyclerView;
     }
