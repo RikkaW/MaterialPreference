@@ -24,7 +24,6 @@
     android:paddingLeft="?android:listPreferredItemPaddingLeft"
     android:paddingEnd="?android:listPreferredItemPaddingRight"
     android:paddingRight="?android:listPreferredItemPaddingRight"
-    android:background="?selectableItemBackground"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:baselineAligned="false">
