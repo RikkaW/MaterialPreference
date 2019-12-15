@@ -59,7 +59,7 @@ class Light {
             float mLightRadius = (float) Hack.into(threadedRendererClass)
                     .field("mLightRadius").ofType(float.class).get(threadedRenderer);
 
-            final float lightX = mWindowLeft + 56 * view.getResources().getDisplayMetrics().density;
+            final float lightX = mWindowLeft;
             final float lightY = mLightY - mWindowTop;
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
