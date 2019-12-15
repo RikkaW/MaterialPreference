@@ -61,8 +61,12 @@ public class SeekBarPreference extends Preference {
     private OnSeekBarChangeListener mSeekBarChangeListener = new OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if (fromUser && !mTrackingTouch) {
-                syncValueInternal(seekBar);
+            if (fromUser) {
+                if (mTrackingTouch) {
+                    mSeekBarValueTextView.setText(String.valueOf(progress + mMin));
+                } else {
+                    syncValueInternal(seekBar);
+                }
             }
         }
 
@@ -290,6 +294,7 @@ public class SeekBarPreference extends Preference {
                 setValueInternal(seekBarValue, false);
             } else {
                 seekBar.setProgress(mSeekBarValue - mMin);
+                mSeekBarValueTextView.setText(String.valueOf(mSeekBarValue));
             }
         }
     }
