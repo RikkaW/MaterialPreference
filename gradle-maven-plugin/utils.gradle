@@ -1,0 +1,23 @@
+def isAndroidProject() {
+    def plugins = project.getPlugins()
+    return plugins.hasPlugin('com.android.application') || plugins.hasPlugin('com.android.library')
+}
+
+def getStringProperty(String propertyName) {
+    return project.hasProperty(propertyName) ? project.getProperty(propertyName) : ""
+}
+
+def getBooleanProperty(String propertyName) {
+    return project.hasProperty(propertyName) ? project.getProperty(propertyName) : false
+}
+
+def getArrayProperty(String propertyName) {
+    return project.hasProperty(propertyName) ? project.getProperty(propertyName) : []
+}
+
+ext {
+    isAndroidProject = this.&isAndroidProject
+    getStringProperty = this.&getStringProperty
+    getBooleanProperty = this.&getBooleanProperty
+    getArrayProperty = this.&getArrayProperty
+}

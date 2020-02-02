@@ -21,7 +21,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation "androidx.fragment:fragment:1.1.0"
+    implementation "androidx.fragment:fragment:1.2.0"
     implementation project(':preference-android')
     implementation project(':preference-simplemenu-android')
 }

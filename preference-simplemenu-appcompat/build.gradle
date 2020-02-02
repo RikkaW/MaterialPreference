@@ -10,6 +10,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures {
+        buildConfig = false
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -25,19 +28,19 @@ android {
 
 dependencies {
     implementation "androidx.appcompat:appcompat:1.1.0"
-    implementation "androidx.fragment:fragment:1.1.0"
-    implementation "androidx.recyclerview:recyclerview:1.1.0-beta05"
+    implementation "androidx.fragment:fragment:1.2.0"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.interpolator:interpolator:1.0.0"
 
     implementation project(':preference-appcompat')
 }
 
-ext {
-    libraryName = 'MaterialPreference-SimpleMenu-AppCompat'
-    libraryDescription = 'An extend of MaterialPreference, adding a version of ListPreference that use Simple Menus from Material Design as drop down. Use appcompat resources.'
-    libraryVersion = versionName
-    artifact = project.name
-    bintrayName = project.name
+project.ext {
+    mavProjectName = 'MaterialPreference-SimpleMenu-AppCompat'
+    mavLibraryDescription = 'An extend of MaterialPreference, adding a version of ListPreference that use Simple Menus from Material Design as drop down. Use appcompat resources.'
 }
 
-apply from: project.rootProject.file('bintray.gradle')
+group = 'moe.shizuku.preference'
+version = android.defaultConfig.versionName
+
+apply from: rootProject.file('publish.gradle')

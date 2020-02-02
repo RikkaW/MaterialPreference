@@ -1,0 +1,52 @@
+apply plugin: 'maven-publish'
+
+def gradlePluginVersion = project.hasProperty('mavPluginVersion') ? project.mavPluginVersion : 'master'
+apply from: "https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/${gradlePluginVersion}/utils.gradle"
+apply from: "https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/${gradlePluginVersion}/artifact-javadoc-handler.gradle"
+apply from: "https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/${gradlePluginVersion}/artifact-pom-manager.gradle"
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            mavenPublish(MavenPublication) {
+                if (isAndroidProject()) {
+                    artifact bundleReleaseAar
+                    artifact androidJavadocsJar
+                    artifact androidSourcesJar
+                } else {
+                    artifact jar
+                    artifact sourcesJar
+                    artifact javadocJar
+                }
+                
+                decoratePom(pom)
+            }
+        }
+        
+        repositories {
+            def isToRemoteRepo = getBooleanProperty("mavPublishToRemoteRepo")
+            def isToInternalRepo = getBooleanProperty("mavPublishToInternalRepo")
+            def isToMavenLocal = getBooleanProperty("mavPublishToMavenLocal")
+
+            if (isToRemoteRepo) {
+                maven {
+                    credentials {
+                        username getStringProperty("mavRemoteRepoUser")
+                        password getStringProperty("mavRemoteRepoPassword")
+                    }
+                    url = getStringProperty("mavRepoRemoteUrl")
+                }
+            }
+
+            if (isToInternalRepo) {
+                maven {
+                    url = getStringProperty("mavRepoInternalUrl")
+                }
+            }
+
+            if (isToMavenLocal || (!isToInternalRepo && !isToRemoteRepo)) {
+                mavenLocal()
+            }
+        }
+    }
+}

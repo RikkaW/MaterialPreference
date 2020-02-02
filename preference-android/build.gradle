@@ -11,6 +11,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    buildFeatures {
+        buildConfig = false
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -26,16 +29,16 @@ android {
 
 dependencies {
     implementation "androidx.annotation:annotation:1.1.0"
-    implementation "androidx.fragment:fragment:1.1.0"
-    implementation "androidx.recyclerview:recyclerview:1.1.0-beta05"
+    implementation "androidx.fragment:fragment:1.2.0"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
 }
 
-ext {
-    libraryName = 'MaterialPreference-Android'
-    libraryDescription = 'MaterialPreference which use pure Android resources.'
-    libraryVersion = versionName
-    artifact = project.name
-    bintrayName = project.name
+project.ext {
+    mavProjectName = 'MaterialPreference-Android'
+    mavLibraryDescription = 'MaterialPreference which use pure Android resources.'
 }
 
-apply from: project.rootProject.file('bintray.gradle')
+group = 'moe.shizuku.preference'
+version = android.defaultConfig.versionName
+
+apply from: rootProject.file('publish.gradle')

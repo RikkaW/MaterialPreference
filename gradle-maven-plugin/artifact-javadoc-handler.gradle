@@ -1,0 +1,49 @@
+def gradlePluginVersion = project.hasProperty('mavPluginVersion') ? project.mavPluginVersion : 'master'
+apply from: "https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/${gradlePluginVersion}/utils.gradle"
+
+if (isAndroidProject()) {
+    task androidJavadocs(type: Javadoc) {
+        title = "${getStringProperty("mavProjectName")} ${project.version} API"
+        description "Generates Javadoc"
+        source = android.sourceSets.main.java.srcDirs
+        classpath += files(android.bootClasspath)
+
+        android.libraryVariants.all { variant ->
+            if (variant.name == 'release') {
+                owner.classpath += variant.javaCompileProvider.get().classpath
+            }
+        }
+
+        exclude '**/R.html', '**/R.*.html', '**/index.html', '**/*.kt'
+
+        options {
+            windowTitle("${getStringProperty("mavProjectName")} ${project.version} Reference")
+            locale = 'en_US'
+            encoding = 'UTF-8'
+            charSet = 'UTF-8'
+            links("http://docs.oracle.com/javase/7/docs/api/")
+            linksOffline("http://d.android.com/reference", "${android.sdkDirectory}/docs/reference")
+            setMemberLevel(JavadocMemberLevel.PUBLIC)
+        }
+    }
+
+    task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+        classifier = 'javadoc'
+        from androidJavadocs.destinationDir
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+} else {
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allJava
+        archiveClassifier = 'sources'
+    }
+
+    task javadocJar(type: Jar) {
+        from javadoc
+        archiveClassifier = 'javadoc'
+    }
+}

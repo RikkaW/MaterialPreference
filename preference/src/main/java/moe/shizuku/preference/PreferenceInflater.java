@@ -45,7 +45,7 @@ class PreferenceInflater {
 
     private static final HashMap<String, Constructor> CONSTRUCTOR_MAP = new HashMap<>();
 
-    static final String DEFAULT_PACKAGE = BuildConfig.APPLICATION_ID + ".";
+    static final String DEFAULT_PACKAGE = "moe.shizuku.preference.";
 
     private final Context mContext;
 

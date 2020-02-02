@@ -1,0 +1,102 @@
+def gradlePluginVersion = project.hasProperty('mavPluginVersion') ? project.mavPluginVersion : 'master'
+apply from: "https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/${gradlePluginVersion}/utils.gradle"
+ 
+def decoratePom(pom) {
+    pom.name = getStringProperty("mavProjectName")
+    pom.description = getStringProperty("mavLibraryDescription")
+    pom.url = getStringProperty("mavSiteUrl")
+    
+    pom.licenses {
+        getArrayProperty("mavLibraryLicenses").each { licenseName, licenseUrl ->
+            license {
+                name = licenseName
+                url = licenseUrl
+            }
+        }
+    }
+    pom.developers {
+        getArrayProperty("mavDevelopers").each { developerId, developerName ->
+            developer {
+                id = developerId
+                name = developerName
+            }
+        }
+    }
+    pom.scm {
+        connection = getStringProperty("mavGitUrl")
+        developerConnection = getStringProperty("mavGitUrl")
+        url = getStringProperty("mavSiteUrl")
+    }
+
+    addDependencies(pom)
+}
+
+def addDependencies(pom) {
+    pom.withXml {
+        final dependenciesNode = asNode().appendNode('dependencies')
+        ext.addDependency = { Dependency dep, String scope ->
+            if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
+                return // ignore invalid dependencies
+            
+            if (dep.artifacts.size() > 0) {
+                dep.artifacts.each { art ->
+                    addDependencyNode(dependenciesNode, dep, scope, art.classifier, art.extension)
+                }
+            } else {
+                addDependencyNode(dependenciesNode, dep, scope, null, null)
+            }
+        }
+        manageConfigurations(configurations)
+    }
+}
+
+def addDependencyNode(dependenciesNode, dep, scope, classifier, extension) {
+    final dependencyNode = dependenciesNode.appendNode('dependency')
+    dependencyNode.appendNode('groupId', dep.group)
+    dependencyNode.appendNode('artifactId', dep.name)
+    dependencyNode.appendNode('version', dep.version)
+
+    if (classifier != null) {
+        dependencyNode.appendNode('classifier', classifier)
+    }
+    
+    if (extension != null) {
+        dependencyNode.appendNode('type', extension)
+    }
+    
+    dependencyNode.appendNode('scope', scope)
+    
+    if (!dep.transitive) {
+        // If this dependency is transitive, we should force exclude all its dependencies them from the POM
+        final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
+        exclusionNode.appendNode('artifactId', '*')
+        exclusionNode.appendNode('groupId', '*')
+    } else if (!dep.properties.excludeRules.empty) {
+        // Otherwise add specified exclude rules
+        final exclusionsNode = dependencyNode.appendNode('exclusions')
+        dep.properties.excludeRules.each { ExcludeRule rule ->
+            final exclusionNode = exclusionsNode.appendNode('exclusion')
+            exclusionNode.appendNode('artifactId', rule.module ?: '*')
+             exclusionNode.appendNode('groupId', rule.group ?: '*')
+        }
+    }   
+}
+
+def manageConfigurations(configurations) {
+    configurations.compile.getDependencies().each { dep -> addDependency(dep, "compile") }
+    configurations.api.getDependencies().each { dep -> addDependency(dep, "compile") }
+    configurations.implementation.getDependencies().each { dep -> addDependency(dep, "runtime") }
+    configurations.testImplementation.getDependencies().each { dep -> addDependency(dep, "test") }
+    configurations.testCompile.getDependencies().each { dep -> addDependency(dep, "test") }
+
+    if (!isAndroidProject()) {
+        configurations.runtime.getDependencies().each { dep -> addDependency(dep, "runtime") }
+        configurations.testRuntime.getDependencies().each { dep -> addDependency(dep, "test") }
+    }
+}
+
+ext {
+    decoratePom = this.&decoratePom
+}
+
+
