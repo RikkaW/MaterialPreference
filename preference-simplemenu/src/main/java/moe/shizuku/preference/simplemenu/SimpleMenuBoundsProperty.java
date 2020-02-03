@@ -1,4 +1,4 @@
-package moe.shizuku.preference.animation;
+package moe.shizuku.preference.simplemenu;
 
 import android.annotation.TargetApi;
 import android.graphics.Rect;
@@ -6,7 +6,7 @@ import android.os.Build;
 import android.util.Property;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class SimpleMenuBoundsProperty extends Property<PropertyHolder, Rect> {
+class SimpleMenuBoundsProperty extends Property<PropertyHolder, Rect> {
 
     public static final Property<PropertyHolder, Rect> BOUNDS;
 
@@ -16,13 +16,12 @@ public class SimpleMenuBoundsProperty extends Property<PropertyHolder, Rect> {
 
     @Override
     public Rect get(PropertyHolder holder) {
-        return holder.getBackground().getFixedBounds();
+        return holder.getBounds();
     }
 
     @Override
     public void set(PropertyHolder holder, Rect value) {
-        holder.getBackground().setFixedBounds(value);
-        holder.getContentView().setClipBounds(value);
+        holder.setBounds(value);
     }
 
     public SimpleMenuBoundsProperty(String name) {

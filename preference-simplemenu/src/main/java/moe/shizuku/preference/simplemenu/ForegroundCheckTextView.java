@@ -1,4 +1,4 @@
-package moe.shizuku.preference.widget;
+package moe.shizuku.preference.simplemenu;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,11 +12,15 @@ import android.view.Gravity;
 import android.widget.CheckedTextView;
 
 import androidx.annotation.NonNull;
-import moe.shizuku.preference.simplemenu.R;
+import androidx.annotation.RestrictTo;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 /**
  * Extension of {@link CheckedTextView} that adds a Foreground drawable.
  */
+
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 public class ForegroundCheckTextView extends CheckedTextView {
 
     private Drawable mForeground;

@@ -1,4 +1,4 @@
-package moe.shizuku.preference.animation;
+package moe.shizuku.preference.simplemenu;
 
 import android.animation.TypeEvaluator;
 import android.annotation.SuppressLint;
@@ -8,7 +8,7 @@ import android.graphics.Rect;
  * This evaluator can be used to perform type interpolation between {@link Rect}.
  */
 
-public class RectEvaluator implements TypeEvaluator<Rect> {
+class RectEvaluator implements TypeEvaluator<Rect> {
 
     private final Rect mMax;
     private final Rect mTemp = new Rect();

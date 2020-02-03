@@ -1,4 +1,4 @@
-package moe.shizuku.preference.animation;
+package moe.shizuku.preference.simplemenu;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -14,8 +14,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
-import moe.shizuku.preference.drawable.FixedBoundsDrawable;
-import moe.shizuku.preference.widget.SimpleMenuPopupWindow;
 
 /**
  * Helper class to create and start animation of Simple Menu.
@@ -24,29 +22,9 @@ import moe.shizuku.preference.widget.SimpleMenuPopupWindow;
  */
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class SimpleMenuAnimation {
+class SimpleMenuAnimation {
 
-    public static void postStartEnterAnimation(final SimpleMenuPopupWindow popupWindow, final FixedBoundsDrawable background,
-                                               final int width, final int height,
-                                               final int startX, final int startY, final Rect start,
-                                               final int itemHeight, final int elevation, final int selectedIndex) {
-        popupWindow.getBackground().setFixedBounds(new Rect());
-        popupWindow.getContentView().setClipBounds(new Rect());
-
-        popupWindow.getContentView().post(new Runnable() {
-            @Override
-            public void run() {
-                // return if already dismissed
-                if (popupWindow.getContentView().getParent() == null) {
-                    return;
-                }
-                startEnterAnimation(popupWindow.getContentView(), background, width, height, startX, startY, start, itemHeight, elevation, selectedIndex);
-            }
-        });
-    }
-
-    public static void startEnterAnimation(final View view, final FixedBoundsDrawable background,
-                                           int width, int height,
+    public static void startEnterAnimation(final CustomBoundsDrawable background, final View view, int width, int height,
                                            int centerX, int centerY, Rect start,
                                            int itemHeight, int elevation, int selectedIndex) {
         PropertyHolder holder = new PropertyHolder(background, view);
@@ -56,7 +34,7 @@ public class SimpleMenuAnimation {
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(
                 backgroundAnimator,
-                createElevationAnimator((View) view.getParent(), elevation));
+                createElevationAnimator(view, elevation));
         animatorSet.setDuration(backgroundAnimator.getDuration());
         animatorSet.start();
 

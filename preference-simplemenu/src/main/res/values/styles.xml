@@ -25,7 +25,7 @@
     </style>
 
     <style name="ThemeOverlay.Preference.SimpleMenuPreference.PopupMenu" parent="android:ThemeOverlay">
-        <item name="popupMenuBackgroundRadius">4dp</item>
+        <item name="popupBackgroundRadius">4dp</item>
     </style>
 
     <style name="Animation.Preference.SimpleMenuCenter" parent="android:Animation">

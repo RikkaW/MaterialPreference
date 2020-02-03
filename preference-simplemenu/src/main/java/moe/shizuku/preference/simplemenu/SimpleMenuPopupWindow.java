@@ -1,8 +1,9 @@
-package moe.shizuku.preference.widget;
+package moe.shizuku.preference.simplemenu;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Outline;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -12,21 +13,20 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.PopupWindow;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RestrictTo;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Arrays;
+
 import moe.shizuku.preference.SimpleMenuPreference;
-import moe.shizuku.preference.animation.SimpleMenuAnimation;
-import moe.shizuku.preference.drawable.FixedBoundsDrawable;
-import moe.shizuku.preference.simplemenu.R;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+import static androidx.annotation.RestrictTo.Scope.LIBRARY_GROUP_PREFIX;
 
 /**
  * Extension of {@link PopupWindow} that implements
@@ -34,6 +34,7 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  * in Material Design.
  */
 
+@RestrictTo(LIBRARY_GROUP_PREFIX)
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SimpleMenuPopupWindow extends PopupWindow {
 
@@ -84,8 +85,6 @@ public class SimpleMenuPopupWindow extends PopupWindow {
     public SimpleMenuPopupWindow(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        getBackground();
-
         setFocusable(true);
         setOutsideTouchable(false);
 
@@ -108,6 +107,14 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         mList.setFocusable(true);
         mList.setLayoutManager(new LinearLayoutManager(context));
         mList.setItemAnimator(null);
+        mList.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                getBackground().getOutline(outline);
+            }
+        });
+        mList.setClipToOutline(true);
+
         setContentView(mList);
 
         mAdapter = new SimpleMenuListAdapter(this);
@@ -158,13 +165,13 @@ public class SimpleMenuPopupWindow extends PopupWindow {
     }
 
     @Override
-    public FixedBoundsDrawable getBackground() {
+    public CustomBoundsDrawable getBackground() {
         Drawable background = super.getBackground();
         if (background != null
-                && !(background instanceof FixedBoundsDrawable)) {
+                && !(background instanceof CustomBoundsDrawable)) {
             setBackgroundDrawable(background);
         }
-        return (FixedBoundsDrawable) super.getBackground();
+        return (CustomBoundsDrawable) super.getBackground();
     }
 
     @Override
@@ -173,8 +180,8 @@ public class SimpleMenuPopupWindow extends PopupWindow {
             throw new IllegalStateException("SimpleMenuPopupWindow must have a background");
         }
 
-        if (!(background instanceof FixedBoundsDrawable)) {
-            background = new FixedBoundsDrawable(background);
+        if (!(background instanceof CustomBoundsDrawable)) {
+            background = new CustomBoundsDrawable(background);
         }
         super.setBackgroundDrawable(background);
     }
@@ -199,16 +206,16 @@ public class SimpleMenuPopupWindow extends PopupWindow {
 
         mAdapter.notifyDataSetChanged();
 
+        // clear last bounds
+        Rect zeroRect = new Rect();
+        getBackground().setCustomBounds(zeroRect);
+        getContentView().invalidateOutline();
+
         if (mMode == POPUP_MENU) {
             showPopupMenu(anchor, container, mMeasuredWidth, extraMargin);
 
             if (SimpleMenuPreference.isLightFixEnabled()) {
-                mList.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Light.resetLightCenterForPopupWindow(SimpleMenuPopupWindow.this);
-                    }
-                });
+                mList.post(() -> Light.resetLightCenterForPopupWindow(SimpleMenuPopupWindow.this));
             }
         } else {
             showDialog(anchor, container);
@@ -228,36 +235,28 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         getContentView().setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
         getContentView().scrollToPosition(index);
 
-        int width = Math.min(dialogMaxWidth, container.getWidth() - margin[DIALOG][HORIZONTAL] * 2);
-        setWidth(width);
+        setWidth(Math.min(dialogMaxWidth, container.getWidth() - margin[DIALOG][HORIZONTAL] * 2));
         setHeight(WRAP_CONTENT);
         setAnimationStyle(R.style.Animation_Preference_SimpleMenuCenter);
         setElevation(elevation[DIALOG]);
 
         super.showAtLocation(parent, Gravity.CENTER_VERTICAL, 0, 0);
 
-        getContentView().post(new Runnable() {
-            @Override
-            public void run() {
-                int width = getContentView().getWidth();
-                int height = getContentView().getHeight();
-                Rect start = new Rect(width / 2, height / 2, width / 2, height / 2);
-
-                SimpleMenuAnimation.startEnterAnimation(getContentView(), getBackground(),
-                        width, height, width / 2, height / 2, start, itemHeight, elevation[DIALOG] / 4, index);
+        getContentView().post(() -> {
+            // disable over scroll when no scroll
+            LinearLayoutManager lm = (LinearLayoutManager) getContentView().getLayoutManager();
+            //noinspection ConstantConditions
+            if (lm.findFirstCompletelyVisibleItemPosition() == 0
+                    && lm.findLastCompletelyVisibleItemPosition() == count - 1) {
+                getContentView().setOverScrollMode(View.OVER_SCROLL_NEVER);
             }
-        });
 
-        getContentView().post(new Runnable() {
-            @Override
-            public void run() {
-                // disable over scroll when no scroll
-                LinearLayoutManager lm = (LinearLayoutManager) getContentView().getLayoutManager();
-                if (lm.findFirstCompletelyVisibleItemPosition() == 0
-                        && lm.findLastCompletelyVisibleItemPosition() == count - 1) {
-                    getContentView().setOverScrollMode(View.OVER_SCROLL_NEVER);
-                }
-            }
+            int width = getContentView().getWidth();
+            int height = getContentView().getHeight();
+            Rect start = new Rect(width / 2, height / 2, width / 2, height / 2);
+
+            SimpleMenuAnimation.startEnterAnimation(getBackground(), getContentView(),
+                    width, height, width / 2, height / 2, start, itemHeight, elevation[DIALOG] / 4, index);
         });
     }
 
@@ -286,7 +285,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
 
         int y;
 
-        int height = measuredHeight;
+        int height;
         int elevation = this.elevation[POPUP_MENU];
         int centerX = rtl
                 ? location[0] + extraMargin - width + listPadding[POPUP_MENU][HORIZONTAL]
@@ -296,7 +295,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         int animIndex = index;
         Rect animStartRect;
 
-        if (height > containerHeight) {
+        if (measuredHeight > containerHeight) {
             // too high, use scroll
             y = containerTopInWindow + margin[POPUP_MENU][VERTICAL];
 
@@ -305,18 +304,13 @@ public class SimpleMenuPopupWindow extends PopupWindow {
                     - anchorTop + listPadding[POPUP_MENU][VERTICAL] + margin[POPUP_MENU][VERTICAL]
                     - anchorHeight / 2 + itemHeight / 2;
 
-            getContentView().post(new Runnable() {
-                @Override
-                public void run() {
-                    getContentView().scrollBy(0, -measuredHeight); // to top
-                    getContentView().scrollBy(0, scroll);
-                }
+            getContentView().post(() -> {
+                getContentView().scrollBy(0, -measuredHeight); // to top
+                getContentView().scrollBy(0, scroll);
             });
             getContentView().setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
 
             height = containerHeight - margin[POPUP_MENU][VERTICAL] * 2;
-
-            animIndex = index;
 
             centerY = itemHeight * index;
         } else {
@@ -333,6 +327,8 @@ public class SimpleMenuPopupWindow extends PopupWindow {
             y = Math.max(y, minY);
 
             getContentView().setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+            height = measuredHeight;
 
             // center of selected item
             centerY = (int) (listPadding[POPUP_MENU][VERTICAL] + index * itemHeight + itemHeight * 0.5);
@@ -367,8 +363,8 @@ public class SimpleMenuPopupWindow extends PopupWindow {
 
         int animElevation = (int) Math.round(elevation * 0.25);
 
-        SimpleMenuAnimation.postStartEnterAnimation(this, getBackground(),
-                width, height, centerX, centerY, animStartRect, animItemHeight, animElevation, animIndex);
+        getContentView().post(() -> SimpleMenuAnimation.startEnterAnimation(getBackground(), getContentView(),
+                width, height, centerX, centerY, animStartRect, animItemHeight, animElevation, animIndex));
     }
 
     /**
@@ -397,12 +393,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
 
         entries = Arrays.copyOf(entries, entries.length);
 
-        Arrays.sort(entries, new Comparator<CharSequence>() {
-            @Override
-            public int compare(CharSequence o1, CharSequence o2) {
-                return o2.length() - o1.length();
-            }
-        });
+        Arrays.sort(entries, (o1, o2) -> o2.length() - o1.length());
 
         Context context = getContentView().getContext();
         int width = 0;

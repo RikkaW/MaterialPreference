@@ -1,4 +1,4 @@
-package moe.shizuku.preference.widget;
+package moe.shizuku.preference.simplemenu;
 
 import android.annotation.SuppressLint;
 import android.graphics.HardwareRenderer;

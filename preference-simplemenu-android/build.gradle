@@ -24,6 +24,10 @@ android {
         java.srcDirs = ['src/main/java', rootProject.file('preference-simplemenu/src/main/java')]
         res.srcDirs = ['src/main/res', rootProject.file('preference-simplemenu/src/main/res')]
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {

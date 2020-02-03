@@ -10,7 +10,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import moe.shizuku.preference.simplemenu.R;
-import moe.shizuku.preference.widget.SimpleMenuPopupWindow;
+import moe.shizuku.preference.simplemenu.SimpleMenuPopupWindow;
 
 /**
  * A version of {@link ListPreference} that use
@@ -70,13 +70,10 @@ public class SimpleMenuPreference extends ListPreference {
         }
 
         mPopupWindow = new SimpleMenuPopupWindow(popupContext, attrs, R.styleable.SimpleMenuPreference_android_popupMenuStyle, popupStyle);
-        mPopupWindow.setOnItemClickListener(new SimpleMenuPopupWindow.OnItemClickListener() {
-            @Override
-            public void onClick(int i) {
-                String value = getEntryValues()[i].toString();
-                if (callChangeListener(value)) {
-                    setValue(value);
-                }
+        mPopupWindow.setOnItemClickListener(i -> {
+            String value = getEntryValues()[i].toString();
+            if (callChangeListener(value)) {
+                setValue(value);
             }
         });
 

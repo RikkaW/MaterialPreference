@@ -17,7 +17,7 @@
 ** limitations under the License.
 */
 -->
-<moe.shizuku.preference.widget.ForegroundCheckTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<moe.shizuku.preference.simplemenu.ForegroundCheckTextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@android:id/text1"
     android:background="@drawable/simple_menu_item_background"
