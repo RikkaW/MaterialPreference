@@ -1542,7 +1542,9 @@ public class Preference implements Comparable<Preference> {
 
     private void dispatchSetInitialValue() {
         if (getPreferenceDataStore() != null) {
-            onSetInitialValue(false, mDefaultValue);
+            if (mDefaultValue != null) {
+                onSetInitialValue(false, mDefaultValue);
+            }
             return;
         }
 
