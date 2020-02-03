@@ -73,11 +73,11 @@ public class SimpleMenuPopupWindow extends PopupWindow {
     }
 
     public SimpleMenuPopupWindow(Context context, AttributeSet attrs) {
-        this(context, attrs, R.styleable.SimpleMenuPreference_popupStyle);
+        this(context, attrs, R.styleable.SimpleMenuPreference_android_popupMenuStyle);
     }
 
     public SimpleMenuPopupWindow(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, R.style.Preference_SimpleMenuPreference_Popup);
+        this(context, attrs, defStyleAttr, R.style.Widget_Preference_SimpleMenuPreference_PopupMenu);
     }
 
     @SuppressLint("InflateParams")
@@ -231,7 +231,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         int width = Math.min(dialogMaxWidth, container.getWidth() - margin[DIALOG][HORIZONTAL] * 2);
         setWidth(width);
         setHeight(WRAP_CONTENT);
-        setAnimationStyle(R.style.Animation_SimpleMenuCenter);
+        setAnimationStyle(R.style.Animation_Preference_SimpleMenuCenter);
         setElevation(elevation[DIALOG]);
 
         super.showAtLocation(parent, Gravity.CENTER_VERTICAL, 0, 0);
@@ -341,7 +341,7 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         setWidth(width);
         setHeight(height);
         setElevation(elevation);
-        setAnimationStyle(R.style.Animation_SimpleMenuCenter);
+        setAnimationStyle(R.style.Animation_Preference_SimpleMenuCenter);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             setEnterTransition(null);

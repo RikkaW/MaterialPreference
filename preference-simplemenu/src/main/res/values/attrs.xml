@@ -12,7 +12,9 @@
     </declare-styleable>
 
     <declare-styleable name="SimpleMenuPreference">
-        <attr name="popupStyle" format="reference" />
+        <attr name="android:popupMenuStyle" />
+        <attr name="android:popupTheme" />
+        <attr name="popupMenuBackgroundRadius" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="SimpleMenuPopup">
