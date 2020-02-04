@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Base"/>
+    <style name="AppTheme" parent="Base">
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 </resources>
