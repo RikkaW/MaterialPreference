@@ -3,7 +3,6 @@ package moe.shizuku.preference.simplemenu;
 import android.annotation.TargetApi;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableWrapper;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -28,8 +27,7 @@ class CustomBoundsDrawable extends DrawableWrapper {
 
     public void setCustomBounds(int left, int top, int right, int bottom) {
         setBounds(left, top, right, bottom);
-        //noinspection ConstantConditions
-        getDrawable().setBounds(left, top, right, bottom);
+        getWrappedDrawable().setBounds(left, top, right, bottom);
     }
 
     @Override
