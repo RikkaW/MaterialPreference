@@ -225,28 +225,12 @@ public class RingtonePreference extends Preference implements
     }
 
     @Override
-    protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-        String uri = restorePersistedValue ? getPersistedString(null) : (String) defaultValue;
+    protected void onSetInitialValue(Object defaultValue) {
+        String uri = getPersistedString((String) defaultValue);
         if (!TextUtils.isEmpty(uri)) {
             setValue(Uri.parse(uri));
         } else {
             setValue(mSummaryNone == null ? "" : mSummaryNone);
-        }
-
-        /*
-         * This method is normally to make sure the internal state and UI
-         * matches either the persisted value or the default value. Since we
-         * don't show the current value in the UI (until the dialog is opened)
-         * and we don't keep local state, if we are restoring the persisted
-         * value we don't need to do anything.
-         */
-        if (restorePersistedValue) {
-            return;
-        }
-
-        // If we are setting to the default value, we should persist it.
-        if (!TextUtils.isEmpty((String) defaultValue)) {
-            onSaveRingtone(Uri.parse((String) defaultValue));
         }
     }
 

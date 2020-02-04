@@ -1542,9 +1542,7 @@ public class Preference implements Comparable<Preference> {
 
     private void dispatchSetInitialValue() {
         if (getPreferenceDataStore() != null) {
-            if (mDefaultValue != null) {
-                onSetInitialValue(false, mDefaultValue);
-            }
+            onSetInitialValue(mDefaultValue);
             return;
         }
 
@@ -1552,35 +1550,25 @@ public class Preference implements Comparable<Preference> {
         final boolean shouldPersist = shouldPersist();
         if (!shouldPersist || !getSharedPreferences().contains(mKey)) {
             if (mDefaultValue != null) {
-                onSetInitialValue(false, mDefaultValue);
+                onSetInitialValue(mDefaultValue);
             }
         } else {
-            onSetInitialValue(true, null);
+            onSetInitialValue(null);
         }
     }
 
     /**
-     * Implement this to set the initial value of the Preference.
+     * Implement this to set the initial value of the preference.
      *
-     * <p>If <var>restorePersistedValue</var> is true, you should restore the
-     * Preference value from the {@link android.content.SharedPreferences}. If
-     * <var>restorePersistedValue</var> is false, you should set the Preference
-     * value to defaultValue that is given (and possibly store to SharedPreferences
-     * if {@link #shouldPersist()} is true).
+     * <p>If you are persisting values to {@link SharedPreferences} or a {@link PreferenceDataStore}
+     * you should restore the saved value for the preference.
      *
-     * <p>In case of using {@link PreferenceDataStore}, the <var>restorePersistedValue</var> is
-     * always {@code true} but the default value (if provided) is set.
+     * <p>If you are not persisting values, or there is no value saved for the preference, you
+     * should set the value of the preference to <var>defaultValue</var>.
      *
-     * <p>This may not always be called. One example is if it should not persist
-     * but there is no default value given.
-     *
-     * @param restorePersistedValue True to restore the persisted value;
-     *                              false to use the given <var>defaultValue</var>.
-     * @param defaultValue          The default value for this Preference. Only use this
-     *                              if <var>restorePersistedValue</var> is false.
+     * @param defaultValue The default value for the preference if set, otherwise {@code null}.
      */
-    protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-    }
+    protected void onSetInitialValue(@Nullable Object defaultValue) {}
 
     public @DividerVisibility
     int getDividerBelowVisibility() {

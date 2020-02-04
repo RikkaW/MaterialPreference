@@ -271,8 +271,8 @@ public class ListPreference extends DialogPreference {
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        setValue(restoreValue ? getPersistedString(mValue) : (String) defaultValue);
+    protected void onSetInitialValue(Object defaultValue) {
+        setValue(getPersistedString((String) defaultValue));
     }
 
     @Override
