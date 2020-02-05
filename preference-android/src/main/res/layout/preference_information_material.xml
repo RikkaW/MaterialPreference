@@ -18,13 +18,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:baselineAligned="false"
     android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-    android:baselineAligned="false">
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd">
 
-    <include layout="@layout/icon_frame"/>
+    <include layout="@layout/icon_frame" />
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:textAppearance="?android:attr/textAppearanceListItem" />
+            android:textAppearance="?preferenceTitleTextAppearance" />
 
         <TextView
             android:id="@android:id/summary"
@@ -46,9 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@android:id/title"
             android:layout_alignStart="@android:id/title"
-            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
-            android:textColor="?android:attr/textColorSecondary"
-            android:maxLines="10" />
+            android:maxLines="10"
+            android:textAppearance="?preferenceSummaryTextAppearance"
+            android:textColor="?android:attr/textColorSecondary" />
 
     </RelativeLayout>
 
@@ -57,8 +57,8 @@
         android:id="@android:id/widget_frame"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:minWidth="58dp"
         android:gravity="end|center_vertical"
+        android:minWidth="58dp"
         android:orientation="vertical" />
 
 </LinearLayout>

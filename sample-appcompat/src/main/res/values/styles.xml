@@ -1,37 +1,21 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-
-        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
-
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="Base.Light" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="preferenceTheme">@style/ThemeOverlay.Preference</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="Base" parent="Theme.MaterialComponents">
+        <item name="preferenceTheme">@style/ThemeOverlay.Preference</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme" parent="Base.Light"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay">
+    <style name="ThemeOverlay.Preference" parent="PreferenceThemeOverlay">
         <item name="simpleMenuPreferenceStyle">@style/Preference.SimpleMenuPreference</item>
-        <!--<item name="switchPreferenceCompatStyle">@style/Preference.SwitchPreferenceCompat</item>-->
-    </style>
 
-    <!--<style name="SimpleMenuPreference" parent="Preference.SimpleMenuPreference">
-        <item name="popupStyle">@style/SimpleMenuPreference.Popup</item>
+        <!-- custom text style, use MaterialComponents style as example -->
+        <item name="preferenceTitleTextAppearance">?textAppearanceSubtitle1</item>
+        <item name="preferenceSummaryTextAppearance">?textAppearanceBody2</item>
+        <item name="preferenceCategoryTextAppearance">?textAppearanceSubtitle2</item>
     </style>
-
-    <style name="SimpleMenuPreference.Popup" parent="Preference.SimpleMenuPreference.Popup">
-        <item name="listElevation">40dp</item>
-    </style>-->
 
 </resources>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2016 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,30 +18,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:minHeight="?android:listPreferredItemHeightSmall"
     android:paddingStart="?android:listPreferredItemPaddingLeft"
     android:paddingLeft="?android:listPreferredItemPaddingLeft"
     android:paddingEnd="?android:listPreferredItemPaddingRight"
-    android:paddingRight="?android:listPreferredItemPaddingRight"
-    android:clipToPadding="false"
-    android:minHeight="?android:listPreferredItemHeightSmall"
-    android:background="?selectableItemBackground"
-    android:gravity="center_vertical"
-    android:focusable="true">
+    android:paddingRight="?android:listPreferredItemPaddingRight">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:gravity="center_vertical">
 
-        <include layout="@layout/icon_frame"/>
+        <include layout="@layout/icon_frame" />
 
         <View
             android:id="@android:id/empty"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="invisible"
-            android:layout_gravity="center_vertical" />
+            android:layout_gravity="center_vertical"
+            android:visibility="invisible" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -55,20 +54,20 @@
                 android:id="@android:id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="marquee"
                 android:singleLine="true"
-                android:textAppearance="?textAppearanceListItem"
-                android:ellipsize="marquee" />
+                android:textAppearance="?preferenceTitleTextAppearance" />
 
             <TextView
                 android:id="@android:id/summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@android:id/title"
-                android:layout_alignStart="@android:id/title"
                 android:layout_alignLeft="@android:id/title"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="?android:attr/textColorSecondary"
-                android:maxLines="10" />
+                android:layout_alignStart="@android:id/title"
+                android:maxLines="10"
+                android:textAppearance="?preferenceSummaryTextAppearance"
+                android:textColor="?android:attr/textColorSecondary" />
 
         </RelativeLayout>
 
@@ -78,9 +77,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="end|center_vertical"
+            android:orientation="vertical"
             android:paddingStart="16dp"
             android:paddingLeft="16dp"
-            android:orientation="vertical"
             tools:ignore="RtlSymmetry" />
 
     </LinearLayout>

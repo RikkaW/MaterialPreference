@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +28,7 @@
     android:paddingEnd="?android:listPreferredItemPaddingRight"
     android:paddingRight="?android:listPreferredItemPaddingRight">
 
-    <include layout="@layout/icon_frame"/>
+    <include layout="@layout/icon_frame" />
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -44,7 +43,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:textAppearance="?textAppearanceListItem"/>
+            android:textAppearance="?preferenceTitleTextAppearance" />
 
         <TextView
             android:id="@android:id/summary"
@@ -54,7 +53,7 @@
             android:layout_alignStart="@android:id/title"
             android:layout_alignLeft="@android:id/title"
             android:maxLines="10"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="?preferenceSummaryTextAppearance"
             android:textColor="?android:attr/textColorSecondary" />
 
     </RelativeLayout>

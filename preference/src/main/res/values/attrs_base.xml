@@ -68,6 +68,11 @@
         <attr name="switchPreferenceStyle" format="reference" />
         <!-- Default style for seekbar preferences. -->
         <attr name="seekBarPreferenceStyle" format="reference" />
+
+        <!-- Styles for texts. -->
+        <attr name="preferenceTitleTextAppearance" format="reference" />
+        <attr name="preferenceSummaryTextAppearance" format="reference" />
+        <attr name="preferenceCategoryTextAppearance" format="reference" />
     </declare-styleable>
 
     <!-- Base attributes available to PreferenceFragment. -->
