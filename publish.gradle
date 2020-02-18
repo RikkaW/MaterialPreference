@@ -28,7 +28,7 @@ project.afterEvaluate {
         configurations = ['archives']
         override = true
         pkg {
-            repo = 'Libraries'
+            repo = 'MaterialPreference'
             name = mavProjectName
             desc = mavLibraryDescription
             publicDownloadNumbers = true
