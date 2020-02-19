@@ -280,8 +280,8 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         int[] location = new int[2];
         container.getLocationInWindow(location);
 
-        final int containerTopInWindow = location[1];
-        final int containerHeight = container.getHeight();
+        final int containerTopInWindow = location[1] + container.getPaddingTop();
+        final int containerHeight = container.getHeight() - container.getPaddingTop() - container.getPaddingBottom();
 
         int y;
 
