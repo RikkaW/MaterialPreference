@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RestrictTo;
@@ -401,14 +402,14 @@ public class SimpleMenuPopupWindow extends PopupWindow {
         maxWidth = Math.min(unit * maxUnits, maxWidth);
 
         Rect bounds = new Rect();
-        Paint textPaint = new TextPaint();
-        // TODO do not hardcode
-        textPaint.setTextSize(16 * context.getResources().getDisplayMetrics().scaledDensity);
+
+        TextView view = LayoutInflater.from(context).inflate(R.layout.simple_menu_item, null, false).findViewById(android.R.id.text1);
+        Paint textPaint = view.getPaint();
 
         for (CharSequence chs : entries) {
-            textPaint.getTextBounds(chs.toString(), 0, chs.length(), bounds);
+            textPaint.getTextBounds(chs.toString(), 0, chs.toString().length(), bounds);
 
-            width = Math.max(width, bounds.width() + listPadding[POPUP_MENU][HORIZONTAL] * 2);
+            width = Math.max(width, bounds.right + 1 + Math.round(listPadding[POPUP_MENU][HORIZONTAL] * 2 + 1));
 
             // more than one line should use dialog
             if (width > maxWidth
