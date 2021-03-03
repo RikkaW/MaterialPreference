@@ -1,3 +1,11 @@
+# This project is deprecated
+
+This project was created in the "support library times". In those days, the support preference library even has visual issues, so I choose to create a modified version.
+
+Is very hard to keep up with the official library and the AndroidX Preference library has the most features of this project (customizable divider, SummaryProvider, OnBindEditTextListener, etc), so I decided to deprecate this project.
+
+About SimpleMenuPreference, I will port it to the AndroidX Preference library. It will be a part of RikkaX (https://github.com/RikkaApps/RikkaX).
+
 MaterialPreference
 ==================
 
